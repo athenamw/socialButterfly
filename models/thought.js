@@ -11,6 +11,10 @@ const thoughtSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
+      get: (cheese) => {
+        console.log("you got me");
+        console.log(cheese, this);
+      },
     },
     username: {
       type: String,
@@ -31,6 +35,8 @@ const thoughtSchema = new Schema(
   }
 );
 
+// new Date().toLocaleString()
+
 thoughtSchema
   .virtual("reactionCount")
   //   getter
@@ -38,6 +44,10 @@ thoughtSchema
     return `${this.reactions.length}`;
   });
 
-const Thought = model("thought", userSchema);
+const Thought = model("thought", thoughtSchema);
+
+Thought.find({}).then((data) => {
+  console.log(data);
+});
 
 module.exports = Thought;
