@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongoose").Types;
 const { User, Thought } = require("../models");
 
 // Aggregate function to get the number of users overall
@@ -9,6 +10,7 @@ const headCount = async () => {
 module.exports = {
   // Get all users
   async getUsers(req, res) {
+    console.log('getUsers');
     try {
       const users = await User.find();
 
@@ -25,17 +27,14 @@ module.exports = {
   },
   // Get a single user
   async getSingleUser(req, res) {
+    console.log('getSingleUser');
     try {
       const user = await User.findOne({ _id: req.params.userId }).select("-__v");
 
       if (!user) {
         return res.status(404).json({ message: "No user with that ID" });
       }
-
-      res.json({
-        user,
-        grade: await grade(req.params.userId),
-      });
+      res.json(user);
     } catch (err) {
       console.log(err);
       return res.status(500).json(err);
@@ -43,6 +42,7 @@ module.exports = {
   },
   // create a new user
   async createUser(req, res) {
+    console.log('createUser');
     try {
       const user = await User.create(req.body);
       res.json(user);
@@ -52,6 +52,7 @@ module.exports = {
   },
   // Delete a user and remove them from the course
   async deleteUser(req, res) {
+    console.log('deleteUser');
     try {
       const user = await User.findOneAndRemove({ _id: req.params.userId });
 
@@ -76,6 +77,7 @@ module.exports = {
 
   // Update a user
   async updateUser(req, res) {
+    console.log('updateUser');
     try {
       const user = await User.findOneAndUpdate({ _id: req.params.userId }, { $set: req.body }, { runValidators: true, new: true });
 
@@ -88,4 +90,16 @@ module.exports = {
       res.status(500).json(err);
     }
   },
+  async createFriend(req, res){
+    console.log('createFriend');
+    try{
+        const friend = await User.findOneAndUpdate({_id:req.params.userId}, {$push: {friends: friend} }
+        );
+        res.status(200);
+    }catch (err){
+        console.log(err);
+        res.status(500).json(err);
+    }
+  }
+
 };
