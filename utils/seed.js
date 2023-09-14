@@ -1,5 +1,6 @@
 const connection = require("../config/connection");
 const { User, Thought } = require("../models");
+const { getUserThoughts } = require("./data");
 
 connection.on("error", (err) => err);
 
@@ -62,8 +63,12 @@ connection.once("open", async () => {
       email: "stanley.hudson@dundermifflin.com",
     },
   ];
-  const thoughts = getRandomThoughts(10);
+  const thoughts = getUserThoughts(10);
 
   await User.collection.insertMany(users);
   await Thought.collection.insertMany(thoughts);
+
+  console.info("Seeding complete! 🌱");
+
+  process.exit(0);
 });

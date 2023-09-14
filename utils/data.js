@@ -67,3 +67,5 @@ const getUserThoughts = (int) => {
   }
   return results;
 };
+
+module.exports = { getUserThoughts };

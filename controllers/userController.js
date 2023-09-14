@@ -93,8 +93,13 @@ module.exports = {
   async createFriend(req, res) {
     console.log("createFriend");
     try {
-      const friend = await User.findOneAndUpdate({ _id: req.params.userId }, { $push: { friends: friend } });
-      res.status(200);
+      // find friend user document from users collection
+      const friend = await User.findOne({ _id: req.params.friendId });
+      //   add friend document to selected user
+      await User.findOneAndUpdate({ _id: req.params.userId }, { $push: { friends: friend } });
+      // find updated user document from users collection
+      const updatedUser = await User.findOne({ _id: req.params.userId });
+      res.status(200).json(updatedUser);
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
