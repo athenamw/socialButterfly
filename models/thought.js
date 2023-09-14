@@ -1,4 +1,7 @@
 const { Schema, model } = require("mongoose");
+const dayjs = require("dayjs");
+var advancedFormat = require("dayjs/plugin/advancedFormat");
+dayjs.extend(advancedFormat);
 
 const thoughtSchema = new Schema(
   {
@@ -11,9 +14,8 @@ const thoughtSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
-      get: (cheese) => {
-        console.log("you got me");
-        console.log(cheese, this);
+      get: (value) => {
+        return dayjs(value).format("MMM Do, YYYY [at] hh:mm a");
       },
     },
     username: {
