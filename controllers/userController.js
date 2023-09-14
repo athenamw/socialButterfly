@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongoose").Types;
 const { User, Thought } = require("../models");
 
 // Aggregate function to get the number of users overall
@@ -109,8 +110,13 @@ module.exports = {
   async deleteFriend(req, res) {
     console.log("deleteFriend");
     try {
-      const friend = await User.findOneAndDelete({ _id: req.params.userId }, { $push: { friends: friend } });
-      res.status(200);
+      // find friend user document from users collection
+      const friend = await User.findOne({ _id: req.params.friendId });
+      //   delete friend document to selected user
+      await User.findOneAndUpdate({ _id: req.params.userId }, { $pull: { friends: new ObjectId(friend._id) } });
+      // find updated user document from users collection
+      const updatedUser = await User.findOne({ _id: req.params.userId });
+      res.status(200).json(updatedUser);
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
