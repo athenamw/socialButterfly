@@ -53,6 +53,18 @@ const usernames = [
     "stanleyh"
 ];
 
+// prettier-ignore
+const reactions = [
+    "cool",
+    "weird",
+    "hilarious!",
+    "I feel the same.",
+    "UGH",
+    "sorry not sorry",
+    "THE worst",
+    "Truth!"
+]
+
 // get random item given array
 const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
@@ -63,6 +75,7 @@ const getUserThoughts = (int) => {
     results.push({
       thoughts: getRandomArrItem(thoughts),
       usernames: getRandomArrItem(usernames),
+      reactions: getRandomArrItem(reactions),
     });
   }
   return results;

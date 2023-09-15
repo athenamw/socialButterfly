@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const { reactionSchema } = require("./reaction");
 const dayjs = require("dayjs");
 var advancedFormat = require("dayjs/plugin/advancedFormat");
 dayjs.extend(advancedFormat);
@@ -25,7 +26,7 @@ const thoughtSchema = new Schema(
     reactions: [
       {
         type: Schema.Types.ObjectId,
-        ref: "reaction",
+        ref: reactionSchema,
       },
     ],
   },
