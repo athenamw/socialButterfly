@@ -24,6 +24,8 @@ npm install and npm run seed need to be completed first.
 
 The usage for this product is to organize and maintain a database for users, friends, thoughts, and reactions.
 
+Video Link: https://drive.google.com/file/d/1lDPKOYaT8di3mfMCn87DNKra8Y-pSdON/view
+
 ## License
 
 Social Butterfly uses a MIT license. Please review information about this [here](https://opensource.org/licenses/MIT).
